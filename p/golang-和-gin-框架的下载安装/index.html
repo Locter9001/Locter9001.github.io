@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='关于我在linux中安装Go和go-gin中遇到的问题，以及找出的正确安装方式'><title>Golang 和 Gin 框架的下载安装</title>
+
+<link rel='canonical' href='https://Locter9001.github.io/p/golang-%E5%92%8C-gin-%E6%A1%86%E6%9E%B6%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/'>
+
+<link rel="stylesheet" href="/scss/style.min.8a41ae0add25dcbd4194ebcd3fdcfafa13536196dd0fb69cd5cd6479b6366808.css"><meta property='og:title' content='Golang 和 Gin 框架的下载安装'>
+<meta property='og:description' content='关于我在linux中安装Go和go-gin中遇到的问题，以及找出的正确安装方式'>
+<meta property='og:url' content='https://Locter9001.github.io/p/golang-%E5%92%8C-gin-%E6%A1%86%E6%9E%B6%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/'>
+<meta property='og:site_name' content='locter'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='go-gin' /><meta property='article:published_time' content='2022-03-13T12:14:02&#43;08:00'/><meta property='article:modified_time' content='2022-03-13T12:14:02&#43;08:00'/><meta property='og:image' content='https://locter-picture.oss-cn-beijing.aliyuncs.com/emmDog.jpg' />
+<meta name="twitter:title" content="Golang 和 Gin 框架的下载安装">
+<meta name="twitter:description" content="关于我在linux中安装Go和go-gin中遇到的问题，以及找出的正确安装方式"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://locter-picture.oss-cn-beijing.aliyuncs.com/emmDog.jpg' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="https://locter-picture.oss-cn-beijing.aliyuncs.com/avatar.jpg" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+                    <span class="emoji">🍑</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">locter</a></h1>
+            <h2 class="site-description">后来情书都给予山鬼，心事都说与西风。奈何山鬼不识字，西风不动情。</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="https://Locter9001.github.io/" selected>English</option>
+                        
+                            <option value="https://Locter9001.github.io/zh-cn/" >中文</option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/golang-%E5%92%8C-gin-%E6%A1%86%E6%9E%B6%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/">
+                
+                    <img src="https://locter-picture.oss-cn-beijing.aliyuncs.com/emmDog.jpg" loading="lazy" alt="Featured image of post Golang 和 Gin 框架的下载安装" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/tools/" style="background-color: #fbbb04; color: #fff;">
+                Tools
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/golang-%E5%92%8C-gin-%E6%A1%86%E6%9E%B6%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/">Golang 和 Gin 框架的下载安装</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            关于我在linux中安装Go和go-gin中遇到的问题，以及找出的正确安装方式
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 13, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="linux-安装go和配置环境以及gin的安装">Linux 安装Go和配置环境，以及gin的安装</h2>
+<p>一直忘记一些细节，所以写了这个文章。希望能帮到各位，也希望你们不会遇到一些奇奇怪怪的bug</p>
+<h2 id="1-下载安装go开发包-和-配置开发环境">1. 下载安装Go开发包 和 配置开发环境</h2>
+<h4 id="11-下载go开发包">1.1 下载Go开发包</h4>
+<p>首先去Golang官网去复制<code>Linux</code>的下载链接,</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">官网链接: <span class="s2">&#34;https://golang.google.cn/dl/&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>这里我会放出来我下载的版本 ( 下载链接 )</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">https://golang.google.cn/dl/go1.17.7.linux-amd64.tar.gz
+</code></pre></td></tr></table>
+</div>
+</div><p>把安装包下载到<code>local</code>目录下:</p>
+<blockquote>
+<p>打开<code>local</code>目录的代码如下</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@VM-0-7-centos ~<span class="o">]</span><span class="c1"># cd /usr/local/</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>下载代码</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@VM-0-7-centos local<span class="o">]</span><span class="c1"># wget https://golang.google.cn/dl/go1.17.7.linux-amd64.tar.gz</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="12-安装go开发包">1.2 安装Go开发包</h4>
+<blockquote>
+<p>安装Go开发包</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@VM-0-7-centos ~<span class="o">]</span><span class="c1"># tar -zxvf go1.17.7.linux-amd64.tar.gz</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>安装完成后输入<code>ls</code>查看目录里的文件,会多出来一个<code>go</code>目录</p>
+<blockquote>
+<p>这里不要着急用 go version 查看版本，因为安装的时候不是全局安装，所以自然看不到</p>
+</blockquote>
+<h4 id="13-建立工作区">1.3 建立工作区</h4>
+<p>Go的代码必须在工作区内，工作区就是一个目录，包含三个子目录分别是：</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>目录名称</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>src</strong></td>
+<td>里面的每一个子目录，就是一个包，包里包含源代码</td>
+</tr>
+<tr>
+<td><strong>pkg</strong></td>
+<td>编译后生成的，包的目标文件</td>
+</tr>
+<tr>
+<td><strong>bin</strong></td>
+<td>生成的可执行文件，Windows是<code>.exe</code>这样的</td>
+</tr>
+</tbody>
+</table></div>
+<p>我们在<code>/home</code>目录下，建立一个目录（文件夹，名字随意只要不是关键字就好），然后在目录里面建立三个子文件夹，也就是上表中所述的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">// 跳转到home目录
+<span class="o">[</span>root@VM-0-7-centos ~<span class="o">]</span><span class="c1"># cd /home</span>
+// 创建工作区（目录）
+<span class="o">[</span>root@VM-0-7-centos home<span class="o">]</span><span class="c1"># mkdir GoJob</span>
+// 进入创建的目录！！！
+<span class="o">[</span>root@VM-0-7-centos home<span class="o">]</span><span class="c1"># cd GoJob/</span>
+// 创建子目录
+<span class="o">[</span>root@VM-0-7-centos ChargeCloud<span class="o">]</span><span class="c1"># mkdir pkg</span>
+<span class="o">[</span>root@VM-0-7-centos ChargeCloud<span class="o">]</span><span class="c1"># mkdir src</span>
+<span class="o">[</span>root@VM-0-7-centos ChargeCloud<span class="o">]</span><span class="c1"># mkdir bin</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>输入<code>ls</code>查看创建的文件</p>
+</blockquote>
+<h4 id="14--配置path环境变量-和-设置gopath环境变量">1.4  配置PATH环境变量 和 设置GOPATH环境变量</h4>
+<p>使用<code>vim</code> 编辑器打开<code>/etc/profile</code>，这是<code>linux</code>的环境变量设置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@VM-0-7-centos ChargeCloud<span class="o">]</span><span class="c1"># vim /etc/profile</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>打开后按键盘上的<code>[i]</code>键进行编辑
+往里加入以下三行代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">export</span> <span class="nv">GOROOT</span><span class="o">=</span>/usr/local/go	<span class="c1">##Golang安装目录</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$GOROOT</span>/bin:<span class="nv">$PATH</span>
+<span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span>/home/GoJob	<span class="c1">##Golang项目目录</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>编辑完成后按键盘上的 <code>ESC</code> 然后输入 <code>:wq</code> 保存退出</p>
+<blockquote>
+<p>如果你在此过程中失误导致无法退出，可以输入<code>:qa</code>强制退出</p>
+</blockquote>
+<p>退出后执行以下命令，使环境变量立即生效（一般情况下要重启生效）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@VM-0-7-centos ChargeCloud<span class="o">]</span><span class="c1"># source /etc/profile</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>之后再输入以下代码查看环境变量配置是否正常</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@VM-0-7-centos local<span class="o">]</span><span class="c1"># go env</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>正常情况下会输出如下述注释一样的代码，表示成功</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">//在我这个方法中，只要你输入以下代码输出版本号就表示成功，因为我们没有全局安装go开发包
+<span class="o">[</span>root@VM-0-7-centos local<span class="o">]</span><span class="c1"># go version</span>
+//我的设备输出：
+// go version go1.17.7 linux/amd64
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>如果出现错误，请仔细查看你写的命令行代码！！！
+如果你是刚接触linux的或者go语言的初学者，建议不要直接修改上述代码，切记，<code>心急吃不了热豆腐~</code></p>
+</blockquote>
+<h2 id="2-下载安装并使用go-gin框架">2. 下载安装并使用go-gin框架</h2>
+<p>这里我配上官网的开发文档，我写的再好都不比官网简单明了~
+<a class="link" href="https://gin-gonic.com/zh-cn/docs/quickstart/"  target="_blank" rel="noopener"
+    >Go-gin 开发文档</a></p>
+<p><strong>目前好像对go开发包有要求，请确保你的go开发包是 Go 1.13 以上版本</strong></p>
+<blockquote>
+<p>如何查看我的go开发包版本？ 在命令行输入：go version 即可</p>
+</blockquote>
+<h4 id="下载前说明">下载前说明</h4>
+<p>在安装之前，有必要说明一下，因为国内特殊的网络环境。我们无法直接访问外网，这就表示也无法从外网下载东西，而Go也是国外公司开发的，下载失败是常有的事情。
+下载前需要先改用国内镜像源：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@VM-0-7-centos local<span class="o">]</span><span class="c1"># export GO111MODULE=on</span>
+<span class="o">[</span>root@VM-0-7-centos local<span class="o">]</span><span class="c1"># export GOPROXY=https://goproxy.cn</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>有时候国内镜像源也会失效，这时候去百度搜索<code>golang</code>国内镜像源找一个换就行
+搜索的时候，记得从搜索设置里把时间段调成最近一个月的，不然白费力气！</p>
+</blockquote>
+<h4 id="还需要注意的是">还需要注意的是</h4>
+<p><strong><code>gin</code>框架安装前需要先创建一个项目！！！！！</strong></p>
+<p>使用如下命令快速跳转到<code>src</code>目录中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@VM-0-7-centos ~<span class="o">]</span><span class="c1"># cd $GOPATH/src</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>创建一个github.com目录（这个你可以研究一下Go的目录结构）并进入里面</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@VM-0-7-centos ~<span class="o">]</span><span class="c1"># mkdir github.com</span>
+<span class="o">[</span>root@VM-0-7-centos ~<span class="o">]</span><span class="c1"># cd github.com</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>再次创建一个项目，我在此命名为：<code>myProject</code>（我的项目）并进入里面</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@VM-0-7-centos github.com<span class="o">]</span><span class="c1"># mkdir myProject</span>
+<span class="o">[</span>root@VM-0-7-centos github.com<span class="o">]</span><span class="c1"># cd myProject</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>最关键的一步：进到新创建的项目中（<code>myProject</code>），初始化项目</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@VM-0-7-centos myProject<span class="o">]</span><span class="c1"># go mod init myProject</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>okay了，现在你可以进行下一步，如果你原本就有项目也可以不执行这一步</p>
+</blockquote>
+<h4 id="下载并安装go-gin">下载并安装go-gin</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@VM-0-7-centos local<span class="o">]</span><span class="c1"># go get -u github.com/gin-gonic/gin</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>此时如果你没有出错的话应该是安装完成了
+显示服务器回调值为空就去换一个镜像源，可别犯傻给你的设备弄一个梯子，因为服务器用不到你的梯子。如果你是安装到本地的<code>linux</code>中那当我在放屁就行~</p>
+</blockquote>
+<h5 id="测试安装的go-gin">测试安装的go-gin</h5>
+<p>新建一个<code>main.go</code>的文件，然后用vim编辑器打开</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@VM-0-7-centos myProject<span class="o">]</span><span class="c1"># touch main.go</span>
+<span class="o">[</span>root@VM-0-7-centos myProject<span class="o">]</span><span class="c1"># vim main.go</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>往里面写入以下代码：</p>
+<blockquote>
+<p>按 <code>i</code> 键即可进入编辑模式</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;github.com/gin-gonic/gin&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
+	<span class="nx">r</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/ping&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">c</span><span class="p">.</span><span class="nf">JSON</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span>
+			<span class="s">&#34;message&#34;</span><span class="p">:</span> <span class="s">&#34;pong&#34;</span><span class="p">,</span>
+		<span class="p">})</span>
+	<span class="p">})</span>
+	<span class="nx">r</span><span class="p">.</span><span class="nf">Run</span><span class="p">()</span> <span class="c1">// 监听并在 0.0.0.0:8080 上启动服务
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>按ESC 再输入:wq 保存并退出编辑器</p>
+</blockquote>
+<p>执行程序</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@VM-0-7-centos myProject<span class="o">]</span><span class="c1">#go run main.go</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出以下代码即表示你已经安装成功了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>GIN-debug<span class="o">]</span> <span class="o">[</span>WARNING<span class="o">]</span> Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+<span class="o">[</span>GIN-debug<span class="o">]</span> <span class="o">[</span>WARNING<span class="o">]</span> Running in <span class="s2">&#34;debug&#34;</span> mode. Switch to <span class="s2">&#34;release&#34;</span> mode in production.
+ - using env:	<span class="nb">export</span> <span class="nv">GIN_MODE</span><span class="o">=</span>release
+ - using code:	gin.SetMode<span class="o">(</span>gin.ReleaseMode<span class="o">)</span>
+
+<span class="o">[</span>GIN-debug<span class="o">]</span> GET    /ping                     --&gt; main.main.func1 <span class="o">(</span><span class="m">3</span> handlers<span class="o">)</span>
+<span class="o">[</span>GIN-debug<span class="o">]</span> <span class="o">[</span>WARNING<span class="o">]</span> You trusted all proxies, this is NOT safe. We recommend you to <span class="nb">set</span> a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies <span class="k">for</span> details.
+<span class="o">[</span>GIN-debug<span class="o">]</span> Environment variable PORT is undefined. Using port :8080 by default
+<span class="o">[</span>GIN-debug<span class="o">]</span> Listening and serving HTTP on :8080
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>很高兴能帮到你~ 如果过程中因为我的教程出现任何问题 请加QQ：3267362309 联系我哟~</p>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/go-gin/">go-gin</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 locter
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.10.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#linux-安装go和配置环境以及gin的安装">Linux 安装Go和配置环境，以及gin的安装</a></li>
+    <li><a href="#1-下载安装go开发包-和-配置开发环境">1. 下载安装Go开发包 和 配置开发环境</a>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#11-下载go开发包">1.1 下载Go开发包</a></li>
+            <li><a href="#12-安装go开发包">1.2 安装Go开发包</a></li>
+            <li><a href="#13-建立工作区">1.3 建立工作区</a></li>
+            <li><a href="#14--配置path环境变量-和-设置gopath环境变量">1.4  配置PATH环境变量 和 设置GOPATH环境变量</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#2-下载安装并使用go-gin框架">2. 下载安装并使用go-gin框架</a>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#下载前说明">下载前说明</a></li>
+            <li><a href="#还需要注意的是">还需要注意的是</a></li>
+            <li><a href="#下载并安装go-gin">下载并安装go-gin</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

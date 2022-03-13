@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Categories on locter</title>
+        <link>https://Locter9001.github.io/categories/</link>
+        <description>Recent content in Categories on locter</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Sun, 13 Mar 2022 12:19:27 +0800</lastBuildDate><atom:link href="https://Locter9001.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>net work</title>
+        <link>https://Locter9001.github.io/categories/net-work/</link>
+        <pubDate>Sun, 13 Mar 2022 12:19:27 +0800</pubDate>
+        
+        <guid>https://Locter9001.github.io/categories/net-work/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Tools</title>
+        <link>https://Locter9001.github.io/categories/tools/</link>
+        <pubDate>Sun, 13 Mar 2022 12:14:02 +0800</pubDate>
+        
+        <guid>https://Locter9001.github.io/categories/tools/</guid>
+        <description>&lt;img src="https://locter-picture.oss-cn-beijing.aliyuncs.com/myToolsImg.png" alt="Featured image of post Tools" /&gt;</description>
+        </item>
+        <item>
+        <title>Go</title>
+        <link>https://Locter9001.github.io/categories/go/</link>
+        <pubDate>Sun, 13 Mar 2022 12:12:38 +0800</pubDate>
+        
+        <guid>https://Locter9001.github.io/categories/go/</guid>
+        <description>&lt;img src="https://locter-picture.oss-cn-beijing.aliyuncs.com/Go-Top.jpg" alt="Featured image of post Go" /&gt;</description>
+        </item>
+        <item>
+        <title>Test</title>
+        <link>https://Locter9001.github.io/categories/test/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://Locter9001.github.io/categories/test/</guid>
+        <description>&lt;img src="https://Locter9001.github.io/categories/test/hutomo-abrianto-l2jk-uxb1BY-unsplash.jpg" alt="Featured image of post Test" /&gt;</description>
+        </item>
+        
+    </channel>
+</rss>
